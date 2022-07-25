@@ -15,9 +15,13 @@ Feature: Testing REST APIs on JSON Server
       | ogImage       | oo gg iii   |
 
 
-    Then I want to post data on "https://sellers.dev.webdad.by/api/product_service/v2/seo"
+    Then I want to post data on "/api/product_service/v2/seo"
     Then I make the post
     And the status code is 201
+    Then Save id
+    When Get Seo by id on url "/api/product_service/v2/seo"
+    Then I make the get
+    And  the status code is 200
 
 #  Scenario: PUT Data to JSON Server
 #    Given the endpoint is up

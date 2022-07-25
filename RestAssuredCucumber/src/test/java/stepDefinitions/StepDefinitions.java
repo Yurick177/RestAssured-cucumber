@@ -11,6 +11,7 @@ import com.jayway.restassured.response.Response;
 import com.jayway.restassured.response.ValidatableResponse;
 import com.jayway.restassured.specification.RequestSpecification;
 import com.jayway.restassured.specification.ResponseSpecification;
+import cucumber.api.java.en.And;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -33,6 +34,7 @@ public class StepDefinitions {
     public RequestSpecBuilder requestBuilder = new RequestSpecBuilder();
     public List<String> value = null;
     public String member;
+    public String seoId;
 
     @Given("the endpoint is up")
     public void endPointUp() {
@@ -182,4 +184,18 @@ public class StepDefinitions {
         requestSpec = requestBuilder.build();
         VResponse = RestAssured.given().spec(requestSpec).when().delete().then();
     }
+
+    @Then("Save id")
+    public void save_Id() {
+        seoId = VResponse.extract().path("result.id");
+        System.out.println(seoId);
+
+    }
+
+    @When("Get Seo by id on url {string}")
+    public void getOnEndPoint(String arg1) {
+        requestBuilder.setBasePath(arg1 + "/" + seoId);
+    }
+
+
 }
