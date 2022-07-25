@@ -8,9 +8,9 @@ public class Hooks {
 
     @Before("@setupLocal")
     public static void initLocal() {
-        RestAssured.baseURI = "http://localhost";
-        RestAssured.port = 3000;
-        RestAssured.basePath = "/posts";
+//        RestAssured.baseURI = "https://sellers.dev.webdad.by";
+//        RestAssured.port = 443;
+//        RestAssured.basePath = "/posts";
     }
 
 }

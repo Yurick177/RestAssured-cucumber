@@ -1,6 +1,7 @@
 package stepDefinitions;
 
 import SupportClasses.Post;
+import SupportClasses.Seo;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.builder.ResponseSpecBuilder;
@@ -35,8 +36,7 @@ public class StepDefinitions {
 
     @Given("the endpoint is up")
     public void endPointUp() {
-        VResponse = RestAssured.given().when().get().then();
-        VResponse.statusCode(200);
+//        VResponse = RestAssured.given().when().get().then();
     }
 
     @When("I want to get data on id {string}")
@@ -46,6 +46,12 @@ public class StepDefinitions {
 
     @When("I want to put data on id {string}")
     public void putOnEndPoint(String arg1) {
+        requestBuilder.setBasePath(arg1);
+
+    }
+
+    @When("I want to post data on {string}")
+    public void postOnEndPoint(String arg1) {
         requestBuilder.setBasePath(arg1);
     }
 
@@ -75,13 +81,15 @@ public class StepDefinitions {
 
         List<List<String>> data = arg1.cells();
 
-        Post post = new Post();
-        post.setId(data.get(0).get(1));
-        post.setTitle(data.get(1).get(1));
-        post.setAuthor(data.get(2).get(1));
+        Seo seo = new Seo();
+        seo.setTitle(data.get(0).get(1));
+        seo.setDescription(data.get(1).get(1));
+        seo.setKeywords(data.get(2).get(1));
+        seo.setOgTitle(data.get(3).get(1));
+        seo.setOgDescription(data.get(4).get(1));
+        seo.setOgImage(data.get(5).get(1));
 
-
-        requestBuilder.setBody(post).setContentType(ContentType.JSON);
+        requestBuilder.setBody(seo).setContentType(ContentType.JSON);
     }
 
     @When("I want to put with data")
